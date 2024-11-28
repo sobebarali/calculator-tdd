@@ -29,4 +29,8 @@ describe("calculator", () => {
     expect(add("1,2,3,4,5")).toBe(15);
     expect(add("10,20,30,40,50,60,70,80,90,100")).toBe(550);
   });
+  test("ignores numbers greater than 1000", () => {
+    expect(add("2,1001")).toBe(2);
+    expect(add("1000,1001,2")).toBe(1002);
+  });
 });

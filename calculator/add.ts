@@ -19,7 +19,9 @@ export function add(numbers: string): number {
   const numArray = numbers
     .replace(/\n/g, delimiter)
     .split(delimiter)
-    .map((num) => parseInt(num, 10));
+    .map((num) => parseInt(num, 10))
+    .filter((num) => num <= 1000);
+
   const negatives = numArray.filter((num) => num < 0);
 
   if (negatives.length > 0) {
