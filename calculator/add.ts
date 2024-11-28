@@ -26,8 +26,13 @@
    const delimiterRegex = new RegExp(`[${delimiters.join("")}|\n]+`);
    const numArray = numbers
      .split(delimiterRegex)
-     .map((num) => parseInt(num, 10))
-     .filter((num) => num <= 1000); // Ignore numbers greater than 1000
+     .map((num) => {
+       if (num === "") {
+         throw new Error("Invalid input format: missing number");
+       }
+       return parseInt(num, 10);
+     })
+     .filter((num) => num <= 1000);
 
    const negatives = numArray.filter((num) => num < 0);
 
