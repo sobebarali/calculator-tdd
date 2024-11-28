@@ -33,4 +33,7 @@ describe("calculator", () => {
     expect(add("2,1001")).toBe(2);
     expect(add("1000,1001,2")).toBe(1002);
   });
+  test("supports delimiters of any length", () => {
+    expect(add("//[***]\n1***2***3")).toBe(6);
+  });
 });

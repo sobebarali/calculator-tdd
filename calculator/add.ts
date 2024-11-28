@@ -12,7 +12,12 @@ export function add(numbers: string): number {
   let delimiter = ",";
   if (numbers.startsWith("//")) {
     const parts = numbers.split("\n");
-    delimiter = parts[0].substring(2);
+    const delimiterPart = parts[0].substring(2);
+    if (delimiterPart.startsWith("[") && delimiterPart.endsWith("]")) {
+      delimiter = delimiterPart.slice(1, -1);
+    } else {
+      delimiter = delimiterPart;
+    }
     numbers = parts[1];
   }
 
