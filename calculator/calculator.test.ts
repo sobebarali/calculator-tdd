@@ -11,4 +11,7 @@ describe("calculator", () => {
   test("returns the sum of two numbers", () => {
     expect(add("1,2")).toBe(3);
   });
+  test("handles new lines as delimiters", () => {
+    expect(add("1\n2,3")).toBe(6);
+  });
 });
