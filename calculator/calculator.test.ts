@@ -25,4 +25,8 @@ describe("calculator", () => {
       "negative numbers not allowed: -2,-3"
     );
   });
+  test("handles any amount of numbers", () => {
+    expect(add("1,2,3,4,5")).toBe(15);
+    expect(add("10,20,30,40,50,60,70,80,90,100")).toBe(550);
+  });
 });
