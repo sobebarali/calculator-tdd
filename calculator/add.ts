@@ -4,6 +4,11 @@
  * @returns The sum of the numbers
  */
 
+import { delimiter } from "path";
+
+
+
+
  export function add(numbers: string): number {
    if (numbers === "") {
      return 0;
@@ -16,7 +21,7 @@
      const delimiterMatches = delimiterPart.match(/\[([^\]]+)\]/g);
 
      if (delimiterMatches) {
-       delimiters = delimiterMatches.map((d) => d.slice(1, -1)); // Extract delimiters from brackets
+       delimiters = delimiterMatches.map((d) => d.slice(1, -1));
      } else {
        delimiters = [delimiterPart];
      }
@@ -24,21 +29,45 @@
    }
 
    const delimiterRegex = new RegExp(`[${delimiters.join("")}|\n]+`);
-   const numArray = numbers
-     .split(delimiterRegex)
-     .map((num) => {
+   const numArray = delimiterCheck(numbers, delimiterRegex);
+
+   const negatives = findNegativeInArray(numArray)
+
+   if (negatives.length > 0) {
+     throw new Error(`negative numbers not allowed: ${negatives.join(",")}`);
+   }
+
+   let sum = 0;
+
+   //1,2,3,4
+   //0 1 2 3
+
+   for(let i=0;i<numArray.length;i++){
+      if((i+1)%2==0){
+        sum+=numArray[i]
+      }else{
+        sum-=numArray[i]
+      }
+   }
+
+   return sum;
+ }
+
+
+function delimiterCheck(nums: string, regex: RegExp){
+  return nums
+     .split(regex)
+     .map((num: string ) => {
        if (num === "") {
          throw new Error("Invalid input format: missing number");
        }
        return parseInt(num, 10);
      })
      .filter((num) => num <= 1000);
-
-   const negatives = numArray.filter((num) => num < 0);
-
-   if (negatives.length > 0) {
-     throw new Error(`negative numbers not allowed: ${negatives.join(",")}`);
-   }
-
-   return numArray.reduce((sum, num) => sum + num, 0);
  }
+
+ function findNegativeInArray(nums: number[]){
+  return nums.filter((num) => num <0)
+ }
+
+ 
